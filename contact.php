@@ -16,7 +16,6 @@ $site_name = 'РБИМ';
 $site_address = $_SERVER['SERVER_NAME'];
 $mailFrom = "noreply@".$site_address;
 
-$mailTopic = $site_name." - заявка от: ".$name." тел.: ".$phone;
 
 date_default_timezone_set('Europe/Moscow');
 
@@ -57,6 +56,7 @@ $content = 'имя: '.$name.'<br>'.
 'IP: '.$ip.'<br>'.
 'Время отправки (по Москве): '.$timestamp.'<br>';
 
+$mailTopic = $site_name." - заявка от: ".$name." тел.: ".$phone;
 
 //sending mail
 if (!mail($mailto, $mailTopic, $content, $headers)){
