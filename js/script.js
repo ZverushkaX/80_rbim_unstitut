@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 	$("#slider-1 ul").bxSlider({
 		minSlides: 3,
@@ -11,6 +11,16 @@ $(document).ready(function() {
 		prevSelector: "#slider-1 .prev"
 	})
 
+	/**
+	 * Аккордион
+	 */
+
+	$("#questions").accordion({
+		header: "> li > h3",
+		heightStyle: "content",
+		icons: null
+
+	});
 	/**
 	 * Всплывающие окна
 	 */
@@ -41,8 +51,8 @@ $(document).ready(function() {
 
 	var placeholderSupport = "placeholder" in document.createElement("input");
 	if (!placeholderSupport) {
-		$.fn.placeholder = function() {
-			$(this).each(function() {
+		$.fn.placeholder = function () {
+			$(this).each(function () {
 				// высота линии равна высоте инпута
 				var h = $(this).height() + 'px';
 				if (!$(this).is("textarea")) {
@@ -52,31 +62,31 @@ $(document).ready(function() {
 				var text = $(this).attr('placeholder');
 				$(this).val(text);
 
-				$(this).click(function() {
+				$(this).click(function () {
 					var text = $(this).attr('placeholder');
 					if ($(this).val() == text) {
 						$(this).val("");
 					}
 				});
-				$(this).blur(function() {
+				$(this).blur(function () {
 					var text = $(this).attr('placeholder');
 					if ($(this).val() == "") {
 						$(this).val(text);
 					}
 				});
 			});
-			$('form').submit(function() {
+			$('form').submit(function () {
 				// обнуляем значения на отправке формы
 				$this = $(this);
-				$(this).find("[placeholder]").each(function() {
+				$(this).find("[placeholder]").each(function () {
 					var text = $(this).attr('placeholder');
 					if ($(this).val() == text) {
 						$(this).val("");
 					}
 				});
 				// стираем после отправки
-				setTimeout(function() {
-					$this.find("[placeholder]").each(function() {
+				setTimeout(function () {
+					$this.find("[placeholder]").each(function () {
 						//console.log("settimeout");
 						var text = $(this).attr('placeholder');
 						if ($(this).val() == "") {
@@ -93,13 +103,13 @@ $(document).ready(function() {
 	/**
 	 * Отправка формы
 	 */
-	$("form").each(function() {
+	$("form").each(function () {
 		$(this).validate({
 			onfocusout: true,
-			submitHandler: function(form) {
+			submitHandler: function (form) {
 				var data = $(form).serialize();
 				var action = $(form).attr("action");
-				var answer = $.post(action, data).done(function(msg) {
+				var answer = $.post(action, data).done(function (msg) {
 					// если удачно
 					if (msg == "") {
 						$.fancybox.close();
@@ -118,7 +128,7 @@ $(document).ready(function() {
 					else {
 						alert("Не удалось отправить заявку.\n Ответ сервера:\n" + msg);
 					}
-				}).fail(function() {
+				}).fail(function () {
 					// не удалось осуществить запрос
 					alert("Произошла ошибка при отправке данных на сервер.");
 				});
@@ -140,8 +150,7 @@ $(document).ready(function() {
 	function getNewDate(date) {
 		if (date) {
 			var newDate = new Date(date);
-		}
-		else
+		} else
 			var newDate = new Date();
 		// 12 ночи каждого дня
 		newDate.setHours(24, 0, 0, 0);
@@ -171,7 +180,7 @@ $(document).ready(function() {
 			<div class="num">{s1}</div>\
 			<p>секунд</p>\
 		</div>',
-		onExpiry: function() {
+		onExpiry: function () {
 			$(".countdown").countdown('option', {
 				until: getNewDate(date)
 			});
@@ -182,7 +191,7 @@ $(document).ready(function() {
 });
 
 // настройки для плагина валидации форм
-(function($) {
+(function ($) {
 	$.extend($.validator.messages, {
 		required: "Это поле необходимо заполнить.",
 		remote: "Пожалуйста, введите правильное значение.",
