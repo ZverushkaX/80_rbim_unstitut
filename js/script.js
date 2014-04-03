@@ -1,15 +1,55 @@
 $(document).ready(function () {
+	if (!window.console) {
+		console = {
+			log: function () {}
+		};
+	}
+
+	function yaReachGoal(goal) {
+		console.log("Цель достигнута: ", goal);
+		yaCounter22945633.reachGoal(goal);
+	}
 
 	$("#slider-1 ul").bxSlider({
 		minSlides: 3,
 		maxSlides: 6,
 		slideMargin: 35,
-		slideWidth: "auto",
-		moveSlides: 3,
+		slideWidth: 200,
+		moveSlides: 2,
 		pager: false,
 		nextSelector: "#slider-1 .next",
-		prevSelector: "#slider-1 .prev"
-	})
+		prevSelector: "#slider-1 .prev",
+		autoDirection: "next",
+		auto: true
+	});
+
+
+	var modal_call_goal_init = $("#modal-call").attr("data-goal");
+
+	function modal_call_reset_goal() {
+		$("#modal-call").attr("data-goal", modal_call_goal_init);
+	}
+
+
+	$.extend($.fancybox.defaults, {
+		beforeClose: function () {
+			modal_call_reset_goal();
+		}
+	});
+
+
+	$(".btn").click(function () {
+		var goal = $(this).attr("data-goal");
+		if (goal) {
+			$("#modal-call").attr("data-goal", goal);
+		}
+	});
+
+	// ie8 fix
+	$(".ie8 label.btn").click(function () {
+		$(this).closest("form").submit();
+		return 0;
+	});
 
 	/**
 	 * Аккордион
@@ -105,16 +145,29 @@ $(document).ready(function () {
 	 */
 	$("form").each(function () {
 		$(this).validate({
-			onfocusout: true,
+			onfocusout: function (element) {
+				//$(element).valid();
+			},
+			rules: {
+				phone: {
+					required: true
+				}
+			},
 			submitHandler: function (form) {
 				var data = $(form).serialize();
 				var action = $(form).attr("action");
 				var answer = $.post(action, data).done(function (msg) {
 					// если удачно
 					if (msg == "") {
-						$.fancybox.close();
+						var goal = $(form).attr("data-goal");
+						try {
+							yaReachGoal(goal);
+						} catch (e) {
+							console.log("Метрика не установлена");
+						}
+
 						$.fancybox({
-							href: "#thank-you",
+							href: "#modal-thank-you",
 							padding: 0
 						});
 

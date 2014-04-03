@@ -662,12 +662,13 @@ input.btn:active {
 .student-projects li {
   margin-right: 35px;
   float: left;
-  min-height: 66px;
+  width: auto !important;
   line-height: 66px;
 }
 .student-projects li img {
+  width: auto;
   vertical-align: middle;
-  max-height: 66px;
+  max-height: 76px;
 }
 .b-budget {
   padding-bottom: 40px;
