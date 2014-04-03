@@ -528,7 +528,7 @@ input.btn:active {
 }
 .b-gray-dark .descr {
   margin-top: 17px;
-  font-size: 16px;
+  font-size: 18px;
 }
 .b-main-problem {
   padding-top: 30px;
@@ -765,8 +765,10 @@ input.btn:active {
   padding: 0;
   list-style: none;
   font-size: 0;
+  text-align: center;
 }
 .list-reviews li {
+  text-align: left;
   margin: 0 10px 20px;
   width: 220px;
   display: inline-block;
